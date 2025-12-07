@@ -1,0 +1,100 @@
+[
+  {
+    "line": 1,
+    "elements": [
+      {
+        "start_timestamp": "2025-12-07T13:57:35.178Z",
+        "line": 3,
+        "name": "Cofactor",
+        "description": "",
+        "id": "matrix;cofactor",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 2278900,
+              "status": "passed"
+            },
+            "line": 4,
+            "name": "I have A Matrix",
+            "match": {
+              "location": "MatrixSteps.iHaveAMatrix()"
+            },
+            "keyword": "Given "
+          },
+          {
+            "result": {
+              "duration": 2017500,
+              "status": "passed"
+            },
+            "line": 5,
+            "name": "I compute cofactor of",
+            "match": {
+              "location": "MatrixSteps.iComputeCofactorOf(io.cucumber.datatable.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "col1",
+                  "col2"
+                ]
+              },
+              {
+                "cells": [
+                  "1",
+                  "2"
+                ]
+              },
+              {
+                "cells": [
+                  "3",
+                  "4"
+                ]
+              }
+            ],
+            "keyword": "When "
+          },
+          {
+            "result": {
+              "duration": 1010100,
+              "status": "passed"
+            },
+            "line": 9,
+            "name": "The result of cofactor is",
+            "match": {
+              "location": "MatrixSteps.iFindAsCofactoreResult(io.cucumber.datatable.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "col1",
+                  "col2"
+                ]
+              },
+              {
+                "cells": [
+                  "4",
+                  "-3"
+                ]
+              },
+              {
+                "cells": [
+                  "-2",
+                  "1"
+                ]
+              }
+            ],
+            "keyword": "Then "
+          }
+        ]
+      }
+    ],
+    "name": "Matrix",
+    "description": "",
+    "id": "matrix",
+    "keyword": "Feature",
+    "uri": "file:Features/matrix.feature",
+    "tags": []
+  }
+]
