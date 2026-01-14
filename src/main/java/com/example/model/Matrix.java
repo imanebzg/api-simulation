@@ -96,14 +96,14 @@ public class Matrix {
 		}
 
 
-	return  true;
+		return  true;
 
 	}
-	
-	
-  @Override
-  public int hashCode() {
-    return super.hashCode();
-  }
+
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
 
 }

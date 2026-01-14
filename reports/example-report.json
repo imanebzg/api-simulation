@@ -3,35 +3,134 @@
     "line": 1,
     "elements": [
       {
-        "start_timestamp": "2025-12-07T13:57:35.178Z",
-        "line": 3,
-        "name": "Cofactor",
+        "line": 2,
+        "name": "",
         "description": "",
-        "id": "matrix;cofactor",
-        "type": "scenario",
-        "keyword": "Scenario",
+        "type": "background",
+        "keyword": "Background",
         "steps": [
           {
             "result": {
-              "duration": 2278900,
+              "duration": 5999100,
               "status": "passed"
             },
-            "line": 4,
+            "line": 3,
             "name": "I have A Matrix",
             "match": {
               "location": "MatrixSteps.iHaveAMatrix()"
             },
             "keyword": "Given "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2026-01-14T13:07:08.930Z",
+        "line": 5,
+        "name": "Determinant",
+        "description": "",
+        "id": "matrix;determinant",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "duration": 6000100,
+              "status": "passed"
+            },
+            "line": 6,
+            "name": "I compute determinant of",
+            "match": {
+              "location": "MatrixSteps.iComputeDeterminantOf(io.cucumber.datatable.DataTable)"
+            },
+            "rows": [
+              {
+                "cells": [
+                  "col1",
+                  "col2",
+                  "col3"
+                ]
+              },
+              {
+                "cells": [
+                  "1",
+                  "2",
+                  "3"
+                ]
+              },
+              {
+                "cells": [
+                  "4",
+                  "5",
+                  "6"
+                ]
+              },
+              {
+                "cells": [
+                  "7",
+                  "8",
+                  "12"
+                ]
+              }
+            ],
+            "keyword": "When "
           },
           {
             "result": {
-              "duration": 2017500,
+              "duration": 11000000,
               "status": "passed"
             },
-            "line": 5,
-            "name": "I compute cofactor of",
+            "line": 11,
+            "name": "The result of determinant is -9",
             "match": {
-              "location": "MatrixSteps.iComputeCofactorOf(io.cucumber.datatable.DataTable)"
+              "arguments": [
+                {
+                  "val": "-9",
+                  "offset": 29
+                }
+              ],
+              "location": "MatrixSteps.iFindAsDeterminantResult(double)"
+            },
+            "keyword": "Then "
+          }
+        ]
+      },
+      {
+        "line": 2,
+        "name": "",
+        "description": "",
+        "type": "background",
+        "keyword": "Background",
+        "steps": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 3,
+            "name": "I have A Matrix",
+            "match": {
+              "location": "MatrixSteps.iHaveAMatrix()"
+            },
+            "keyword": "Given "
+          }
+        ]
+      },
+      {
+        "start_timestamp": "2026-01-14T13:07:09.203Z",
+        "line": 14,
+        "name": "Transpose",
+        "description": "",
+        "id": "matrix;transpose",
+        "type": "scenario",
+        "keyword": "Scenario",
+        "steps": [
+          {
+            "result": {
+              "status": "passed"
+            },
+            "line": 15,
+            "name": "I compute transpose of",
+            "match": {
+              "location": "MatrixSteps.iComputeTransposeOf(io.cucumber.datatable.DataTable)"
             },
             "rows": [
               {
@@ -51,37 +150,45 @@
                   "3",
                   "4"
                 ]
+              },
+              {
+                "cells": [
+                  "5",
+                  "6"
+                ]
               }
             ],
             "keyword": "When "
           },
           {
             "result": {
-              "duration": 1010100,
               "status": "passed"
             },
-            "line": 9,
-            "name": "The result of cofactor is",
+            "line": 20,
+            "name": "The result of transpose is",
             "match": {
-              "location": "MatrixSteps.iFindAsCofactoreResult(io.cucumber.datatable.DataTable)"
+              "location": "MatrixSteps.iFindAsTransposeResult(io.cucumber.datatable.DataTable)"
             },
             "rows": [
               {
                 "cells": [
                   "col1",
-                  "col2"
+                  "col2",
+                  "col3"
                 ]
               },
               {
                 "cells": [
+                  "1",
+                  "3",
+                  "5"
+                ]
+              },
+              {
+                "cells": [
+                  "2",
                   "4",
-                  "-3"
-                ]
-              },
-              {
-                "cells": [
-                  "-2",
-                  "1"
+                  "6"
                 ]
               }
             ],
