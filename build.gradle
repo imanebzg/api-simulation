@@ -36,15 +36,15 @@ jacocoTestReport {
 // Configure SonarQube
 sonarqube {
     properties {
-        property "sonar.projectKey", "your-project-key" // Change this to your project key
-        property "sonar.projectName", "Your Project Name"
+        property "sonar.projectKey", "api-simulation"
+        property "sonar.projectName", "API Simulation"
         property "sonar.host.url", "http://localhost:9000"
+        property "sonar.login", "0f6689878a1a52963f7e38c83d6c2e29dd8396fd"  // Your token from SonarQube
         property "sonar.sources", "src/main/java"
         property "sonar.tests", "src/test/java"
         property "sonar.java.binaries", "build/classes"
     }
 }
-
 // Configure Maven Publishing
 publishing {
     publications {

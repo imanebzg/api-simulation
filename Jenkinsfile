@@ -40,7 +40,7 @@ pipeline {
                 script {
                     echo 'Running SonarQube Analysis...'
                     withSonarQubeEnv('SonarQube') {
-                        bat 'gradlew sonarqube'
+                        bat 'gradlew sonarqube -Dsonar.host.url=http://localhost:9000'
                     }
                 }
             }
@@ -121,5 +121,4 @@ pipeline {
             cleanWs()
         }
     }
-
 }
