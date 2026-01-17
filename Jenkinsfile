@@ -1,10 +1,6 @@
 pipeline {
     agent any
 
-    tools {
-        gradle 'Gradle' // Make sure Gradle is configured in Jenkins Global Tool Configuration
-    }
-
     environment {
         MAVEN_REPO_URL = "${env.MAVEN_REPO_URL}"
         MAVEN_REPO_USERNAME = "${env.MAVEN_REPO_USERNAME}"
