@@ -18,7 +18,13 @@ pipeline {
             steps {
                 script {
                     echo 'Running Unit Tests...'
-                    sh './gradlew test'
+                    // Use bat for Windows, sh for Linux
+                    if (isUnix()) {
+                        sh 'chmod +x gradlew'
+                        sh './gradlew test'
+                    } else {
+                        bat 'gradlew.bat test'
+                    }
 
                     echo 'Archiving Test Results...'
                     junit '**/build/test-results/test/*.xml'
@@ -40,7 +46,11 @@ pipeline {
                 script {
                     echo 'Running SonarQube Analysis...'
                     withSonarQubeEnv('SonarQube') {
-                        sh './gradlew sonarqube'
+                        if (isUnix()) {
+                            sh './gradlew sonarqube'
+                        } else {
+                            bat 'gradlew.bat sonarqube'
+                        }
                     }
                 }
             }
@@ -64,10 +74,18 @@ pipeline {
             steps {
                 script {
                     echo 'Building JAR file...'
-                    sh './gradlew build -x test'
+                    if (isUnix()) {
+                        sh './gradlew build -x test'
+                    } else {
+                        bat 'gradlew.bat build -x test'
+                    }
 
                     echo 'Generating Javadoc...'
-                    sh './gradlew generateJavadoc'
+                    if (isUnix()) {
+                        sh './gradlew generateJavadoc'
+                    } else {
+                        bat 'gradlew.bat generateJavadoc'
+                    }
 
                     echo 'Archiving artifacts...'
                     archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
@@ -80,7 +98,11 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying to MyMavenRepo...'
-                    sh './gradlew publish'
+                    if (isUnix()) {
+                        sh './gradlew publish'
+                    } else {
+                        bat 'gradlew.bat publish'
+                    }
                 }
             }
         }
