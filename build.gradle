@@ -5,27 +5,101 @@ plugins {
     id 'org.sonarqube' version '4.4.1.3373'
 }
 
-
-
 group 'com.example'
 version 'Version_2.0'
-
-
 
 repositories {
     mavenCentral()
 }
 
-
-
 dependencies {
     testImplementation 'io.cucumber:cucumber-java:6.0.0'
     testImplementation 'io.cucumber:cucumber-junit:6.0.0'
-    testImplementation'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
 
+// Configure JaCoCo for code coverage
+test {
+    useJUnit()
+    finalizedBy jacocoTestReport
+}
 
+jacocoTestReport {
+    dependsOn test
+    reports {
+        xml.required = true
+        html.required = true
+        csv.required = false
+    }
+}
 
+// Configure SonarQube
+sonarqube {
+    properties {
+        property "sonar.projectKey", "your-project-key" // Change this to your project key
+        property "sonar.projectName", "Your Project Name"
+        property "sonar.host.url", "http://localhost:9000"
+        property "sonar.sources", "src/main/java"
+        property "sonar.tests", "src/test/java"
+        property "sonar.java.binaries", "build/classes"
+    }
+}
+
+// Configure Maven Publishing
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from components.java
+
+            groupId = project.group
+            artifactId = project.name
+            version = project.version
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'MyMavenRepo'
+            // Get URL from environment variable (set in Jenkins)
+            // Replace the default URL with YOUR actual MyMavenRepo URL
+            url = System.getenv('MAVEN_REPO_URL') ?: 'PASTE_YOUR_MYMAVENREPO_URL_HERE'
+
+            credentials {
+                // Get credentials from environment variables (set in Jenkins)
+                // Replace with your actual username and token for local testing
+                username = System.getenv('MAVEN_REPO_USERNAME') ?: 'your-mymavenrepo-username'
+                password = System.getenv('MAVEN_REPO_PASSWORD') ?: 'your-mymavenrepo-token'
+            }
+        }
+    }
+}
+
+// Task to generate Javadoc
+task generateJavadoc(type: Javadoc) {
+    source = sourceSets.main.allJava
+    classpath = configurations.runtimeClasspath
+    destinationDir = file("${buildDir}/docs/javadoc")
+
+    options {
+        encoding = 'UTF-8'
+        charSet = 'UTF-8'
+        author = true
+        version = true
+        links = ['https://docs.oracle.com/javase/8/docs/api/']
+    }
+}
+
+// Ensure JAR is built
+jar {
+    manifest {
+        attributes(
+                'Implementation-Title': project.name,
+                'Implementation-Version': project.version,
+                'Built-By': System.getProperty('user.name'),
+                'Built-Date': new Date().format('yyyy-MM-dd HH:mm:ss')
+        )
+    }
+}
 
 
 
