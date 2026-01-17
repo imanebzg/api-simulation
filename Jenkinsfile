@@ -18,13 +18,8 @@ pipeline {
             steps {
                 script {
                     echo 'Running Unit Tests...'
-                    // Use bat for Windows, sh for Linux
-                    if (isUnix()) {
-                        sh 'chmod +x gradlew'
-                        sh './gradlew test'
-                    } else {
-                        bat 'gradlew.bat test'
-                    }
+                    bat './gradlew test'
+
 
                     echo 'Archiving Test Results...'
                     junit '**/build/test-results/test/*.xml'
