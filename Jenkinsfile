@@ -18,11 +18,10 @@ pipeline {
             steps {
                 script {
                     echo 'Running Unit Tests...'
-                    bat './gradlew test'
-
+                    bat 'gradlew test'
 
                     echo 'Archiving Test Results...'
-                    junit '**/build/test-results/test/*.xml'
+                    junit allowEmptyResults: true, testResults: '**/build/test-results/test/*.xml'
 
                     echo 'Generating Cucumber Reports...'
                     cucumber buildStatus: 'UNSTABLE',
@@ -41,11 +40,7 @@ pipeline {
                 script {
                     echo 'Running SonarQube Analysis...'
                     withSonarQubeEnv('SonarQube') {
-                        if (isUnix()) {
-                            sh './gradlew sonarqube'
-                        } else {
-                            bat 'gradlew.bat sonarqube'
-                        }
+                        bat 'gradlew sonarqube'
                     }
                 }
             }
@@ -69,22 +64,14 @@ pipeline {
             steps {
                 script {
                     echo 'Building JAR file...'
-                    if (isUnix()) {
-                        sh './gradlew build -x test'
-                    } else {
-                        bat 'gradlew.bat build -x test'
-                    }
+                    bat 'gradlew build -x test'
 
                     echo 'Generating Javadoc...'
-                    if (isUnix()) {
-                        sh './gradlew generateJavadoc'
-                    } else {
-                        bat 'gradlew.bat generateJavadoc'
-                    }
+                    bat 'gradlew generateJavadoc'
 
                     echo 'Archiving artifacts...'
-                    archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true
-                    archiveArtifacts artifacts: '**/build/docs/javadoc/**/*', fingerprint: true
+                    archiveArtifacts artifacts: '**/build/libs/*.jar', fingerprint: true, allowEmptyArchive: true
+                    archiveArtifacts artifacts: '**/build/docs/javadoc/**/*', fingerprint: true, allowEmptyArchive: true
                 }
             }
         }
@@ -93,11 +80,7 @@ pipeline {
             steps {
                 script {
                     echo 'Deploying to MyMavenRepo...'
-                    if (isUnix()) {
-                        sh './gradlew publish'
-                    } else {
-                        bat 'gradlew.bat publish'
-                    }
+                    bat 'gradlew publish'
                 }
             }
         }
@@ -113,9 +96,6 @@ pipeline {
                         to: 'your-email@example.com',
                         mimeType: 'text/html'
                     )
-
-                    // Slack notification (optional - requires Slack plugin)
-                    // slackSend color: 'good', message: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' deployed successfully!"
                 }
             }
         }
@@ -133,9 +113,6 @@ pipeline {
                     to: 'your-email@example.com',
                     mimeType: 'text/html'
                 )
-
-                // Slack notification (optional)
-                // slackSend color: 'danger', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' - Stage: ${env.STAGE_NAME}"
             }
         }
 
